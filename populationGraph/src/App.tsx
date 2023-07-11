@@ -11,7 +11,6 @@ import {
   Legend,
   LogarithmicScale
 } from "chart.js";
-import { Line } from "react-chartjs-2";
 import PrefectureCheckbox from "./components/PefectureCheckbox";
 import CategorySelect from "./components/CategorySelect";
 import Population from "./components/Population";
