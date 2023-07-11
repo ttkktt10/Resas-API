@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
   LogarithmicScale
-} from "chart.js";
+} from "chart.js/auto";
 import PrefectureCheckbox from "./components/PefectureCheckbox";
 import CategorySelect from "./components/CategorySelect";
 import Population from "./components/Population";
