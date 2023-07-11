@@ -12,6 +12,9 @@ import {
   LogarithmicScale
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import PrefectureCheckbox from "./components/PefectureCheckbox";
+import CategorySelect from "./components/CategorySelect";
+import Population from "./components/Population";
 import "./App.css";
 
 ChartJS.register(
@@ -26,29 +29,6 @@ ChartJS.register(
 );
 
 const App = () => {
-  type ApiPrefList = {
-    message: null;
-    result: Array<{
-      prefCode: number;
-      prefName: string;
-    }>;
-  };
-
-  type ApiPopulation = {
-    message: null;
-    result: {
-      boundaryYear: number;
-      data: {
-        label: string;
-        data: {
-          year: number;
-          value: number;
-          rate?: number;
-        };
-      };
-    };
-  };
-
   type Prefecture = {
     prefCode: number;
     prefName: string;
@@ -194,38 +174,21 @@ const App = () => {
       </header>
       <div className="prefectures-container">
         {prefectures.map((prefecture) => (
-          <div key={prefecture.prefCode} className="prefecture-checkbox">
-            <label>
-              <input
-                id={"checkbox" + prefecture.prefCode}
-                type="checkbox"
-                name="prefname"
-                value={prefecture.prefName}
-                onChange={handleEventChecked}
-              />
-              {prefecture.prefName}
-            </label>
-          </div>
+          <PrefectureCheckbox
+            key={prefecture.prefCode}
+            prefecture={prefecture}
+            handleEventChecked={handleEventChecked}
+          />
         ))}
       </div>
-      <div className="category-select">
-        <select onChange={selectpopulationCategory}>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="graph-container">
-        <Line
-          data={ChartLineData()}
-          options={ChartLineOptions()}
-          id="chart-key"
-          width="100%"
-          height="400px"
-        />
-      </div>
+      <CategorySelect
+        categories={categories}
+        selectpopulationCategory={selectpopulationCategory}
+      />
+      <Population
+        ChartLineData={ChartLineData}
+        ChartLineOptions={ChartLineOptions}
+      />
     </div>
   );
 };
